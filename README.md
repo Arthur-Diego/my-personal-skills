@@ -1,30 +1,31 @@
-# Repositorio Local de Skills
+# my-personal-skills
 
-Este repositorio guarda suas skills para uso futuro e inclui um terminal interativo para escolher, visualizar e instalar skills em projetos.
+Repositorio pessoal para guardar, catalogar e instalar skills reutilizaveis em projetos.
 
-## Como usar o terminal
+Inspirado na organizacao de repositorios de skills como `pedronauck/skills`, este repo funciona como uma biblioteca: voce adiciona skills em `skills/`, lista pelo terminal interativo e instala a skill escolhida dentro de qualquer projeto.
 
-Execute:
+## Instalacao local
+
+Clone o repositorio:
 
 ```bash
-python3 bin/skills-terminal.py
+git clone https://github.com/Arthur-Diego/my-personal-skills.git
+cd my-personal-skills
 ```
 
-Opcoes disponiveis:
-
-1. Listar skills salvas.
-2. Ver detalhes de uma skill.
-3. Instalar uma skill em um projeto.
-4. Criar esqueleto de nova skill.
-5. Sair.
-
-Para listar sem abrir o menu:
+Liste as skills disponiveis:
 
 ```bash
 python3 bin/skills-terminal.py list
 ```
 
-Para instalar direto em um projeto:
+Abra o terminal interativo:
+
+```bash
+python3 bin/skills-terminal.py
+```
+
+Instale uma skill em um projeto:
 
 ```bash
 python3 bin/skills-terminal.py install refactor-arch /caminho/do/projeto
@@ -37,31 +38,53 @@ Isso copia a skill para:
 /caminho/do/projeto/.claude/skills/refactor-arch/
 ```
 
-Se quiser sobrescrever uma instalacao existente:
+Depois, dentro do projeto:
 
 ```bash
-python3 bin/skills-terminal.py install refactor-arch /caminho/do/projeto --force
+claude "/refactor-arch"
 ```
 
-## Estrutura do repositorio
+## Estrutura
 
 ```text
-.
-├── bin/
-│   └── skills-terminal.py
-├── skills/
-│   └── refactor-arch/
-│       ├── SKILL.md
-│       └── references/
+my-personal-skills/
 ├── .claude/
 │   └── skills/
 │       └── refactor-arch/
-└── reports/
+├── .codex/
+│   └── config.md
+├── bin/
+│   └── skills-terminal.py
+├── scripts/
+│   └── generate-skills-lock.py
+├── skills/
+│   └── mine/
+│       └── refactor-arch/
+│           ├── SKILL.md
+│           └── references/
+├── skills-lock.json
+└── README.md
 ```
 
-A pasta `skills/` e a biblioteca principal. Guarde nela todas as suas skills reutilizaveis.
+## Buckets
 
-A pasta `.claude/skills/` fica como copia local pronta para uso no proprio repositorio.
+Use buckets para organizar a origem das skills:
+
+- `skills/mine/`: skills autorais.
+- `skills/community/`: skills externas ou adaptadas.
+- `skills/experiments/`: skills em teste.
+
+O terminal instala por nome simples:
+
+```bash
+python3 bin/skills-terminal.py install refactor-arch ~/code/meu-projeto
+```
+
+Ou por bucket:
+
+```bash
+python3 bin/skills-terminal.py install mine/refactor-arch ~/code/meu-projeto
+```
 
 ## Skills disponiveis
 
@@ -82,7 +105,7 @@ design-docs-audit/
 └── audit.md
 ```
 
-## Como adicionar uma nova skill
+## Adicionar uma nova skill
 
 Pelo terminal interativo:
 
@@ -90,137 +113,85 @@ Pelo terminal interativo:
 python3 bin/skills-terminal.py
 ```
 
-Escolha a opcao `4. Criar esqueleto de nova skill`.
-
-Ou crie manualmente:
+Escolha:
 
 ```text
-skills/minha-skill/
+4. Criar esqueleto de nova skill
+```
+
+Por padrao, o esqueleto pode ser movido para um bucket:
+
+```bash
+mkdir -p skills/mine
+mv skills/nova-skill skills/mine/nova-skill
+```
+
+Formato minimo:
+
+```text
+skills/mine/nova-skill/
 ├── SKILL.md
 └── references/
 ```
 
-O `SKILL.md` precisa ter frontmatter com `name` e `description`:
+`SKILL.md`:
 
 ```markdown
 ---
-name: minha-skill
+name: nova-skill
 description: Descricao curta dizendo quando esta skill deve ser usada.
 ---
 
-# Minha Skill
+# Nova Skill
 
 Instrucoes da skill.
 ```
 
-## Skill inicial: refactor-arch
+Atualize o catalogo:
 
-A primeira skill salva neste repositorio e `refactor-arch`, criada para o desafio de auditoria e refatoracao arquitetural.
+```bash
+python3 scripts/generate-skills-lock.py
+```
 
-Ela e capaz de orientar um agente em tres fases:
+Versione e envie:
 
-1. Analisar uma codebase e detectar linguagem, framework, dominio e arquitetura.
-2. Auditar anti-patterns e code smells com severidade, arquivo e linha.
-3. Refatorar para MVC e validar que a aplicacao continua funcionando.
+```bash
+git add .
+git commit -m "Add nova-skill"
+git push
+```
 
-## Overview do desafio refactor-arch
+## Skill incluida
 
-Voce precisa entregar uma skill chamada `refactor-arch` capaz de auditar e refatorar tres projetos legados para uma arquitetura MVC, mantendo a aplicacao funcionando depois das mudancas.
+### refactor-arch
 
-Os projetos-alvo sao:
+Audita uma codebase legada, identifica anti-patterns arquiteturais e refatora para MVC com validacao de funcionamento.
 
-- `code-smells-project/`: Python + Flask, API de e-commerce.
-- `ecommerce-api-legacy/`: Node.js + Express, API de LMS com checkout.
-- `task-manager-api/`: Python + Flask, API de gerenciamento de tarefas.
-
-O desafio tem quatro blocos principais:
-
-1. **Analise manual**
-   - Ler os tres projetos antes de automatizar.
-   - Documentar no README pelo menos 5 problemas por projeto.
-   - Cada projeto deve ter pelo menos 1 problema `CRITICAL` ou `HIGH`, 2 `MEDIUM` e 2 `LOW`.
-
-2. **Construcao da skill**
-   - Criar `.claude/skills/refactor-arch/SKILL.md`.
-   - Criar referencias em Markdown para analise de projeto, catalogo de anti-patterns, template de relatorio, guidelines MVC e playbook de refatoracao.
-   - Garantir que a skill seja agnostica de tecnologia, funcionando em Flask e Express.
-
-3. **Execucao nos tres projetos**
-   - Rodar `/refactor-arch` em cada projeto.
-   - Verificar Fase 1, Fase 2 e Fase 3.
-   - Salvar relatorios em `reports/audit-project-1.md`, `reports/audit-project-2.md` e `reports/audit-project-3.md`.
-   - Commitar o codigo refatorado de cada projeto.
-
-4. **Validacao final**
-   - Confirmar que os endpoints originais continuam respondendo.
-   - Confirmar que a estrutura MVC foi criada.
-   - Confirmar que configuracoes sensiveis foram extraidas.
-   - Preencher README com resultados, comparativo antes/depois e logs ou screenshots.
-
-## Prototipo criado para o desafio
-
-Este repositorio contem um prototipo inicial da skill em:
+Caminho:
 
 ```text
-skills/refactor-arch/
-├── SKILL.md
-└── references/
-    ├── anti-pattern-catalog.md
-    ├── mvc-guidelines.md
-    ├── project-analysis.md
-    ├── refactoring-playbook.md
-    └── report-template.md
+skills/mine/refactor-arch/
 ```
 
-Use este prototipo como base copiavel para dentro de cada projeto:
+Uso:
 
 ```bash
-python3 bin/skills-terminal.py install refactor-arch code-smells-project
-python3 bin/skills-terminal.py install refactor-arch ecommerce-api-legacy
-python3 bin/skills-terminal.py install refactor-arch task-manager-api
-```
-
-Depois, execute dentro de cada projeto:
-
-```bash
+python3 bin/skills-terminal.py install refactor-arch /caminho/do/projeto
+cd /caminho/do/projeto
 claude "/refactor-arch"
 ```
 
-## Como testar incrementalmente
+## Manutencao
 
-1. Coloque os tres projetos-base na raiz deste repositorio.
-2. Copie a pasta `.claude/` para o projeto que deseja testar primeiro.
-3. Execute a skill no projeto.
-4. Na Fase 2, revise o relatorio antes de aprovar a refatoracao.
-5. Apos a Fase 3, rode os testes ou comandos de boot da aplicacao.
-6. Ajuste os arquivos de referencia se a skill nao detectar problemas suficientes.
+Sempre que adicionar, remover ou editar uma skill, regenere:
 
-## Estrutura esperada na entrega
-
-```text
-desafio-skills/
-├── README.md
-├── code-smells-project/
-│   └── .claude/skills/refactor-arch/
-├── ecommerce-api-legacy/
-│   └── .claude/skills/refactor-arch/
-├── task-manager-api/
-│   └── .claude/skills/refactor-arch/
-└── reports/
-    ├── audit-project-1.md
-    ├── audit-project-2.md
-    └── audit-project-3.md
+```bash
+python3 scripts/generate-skills-lock.py
 ```
 
-## Checklist de aceite
+Valide o CLI:
 
-- [ ] Fase 1 detecta linguagem, framework, dominio, arquitetura e quantidade de arquivos.
-- [ ] Fase 2 gera no minimo 5 findings por projeto.
-- [ ] Fase 2 inclui pelo menos 1 finding `CRITICAL` ou `HIGH` por projeto.
-- [ ] Fase 2 lista arquivo e linha exatos para cada finding.
-- [ ] Fase 2 pausa e pede confirmacao antes de editar arquivos.
-- [ ] Fase 3 cria estrutura MVC.
-- [ ] Fase 3 remove configuracoes sensiveis hardcoded.
-- [ ] Fase 3 centraliza tratamento de erro.
-- [ ] Fase 3 valida boot da aplicacao.
-- [ ] Fase 3 valida endpoints originais.
+```bash
+python3 -m py_compile bin/skills-terminal.py scripts/generate-skills-lock.py
+python3 bin/skills-terminal.py list
+```

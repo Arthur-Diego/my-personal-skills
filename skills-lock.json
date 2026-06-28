@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "repository": "my-personal-skills",
+  "skills": [
+    {
+      "name": "design-docs-auditor",
+      "bucket": "local",
+      "path": "skills/design-docs-auditor",
+      "description": "Audit software repositories for missing or weak Design Docs, PRDs, ADRs, engineering guidelines, architecture records, API contracts, operational docs, and project decision documentation. Use when asked to validate a new or existing codebase against Design Docs practices, identify documentation gaps before implementation, create a technical documentation checklist, review repo readiness, or produce a remediation plan for product/architecture/design documentation."
+    },
+    {
+      "name": "refactor-arch",
+      "bucket": "mine",
+      "path": "skills/mine/refactor-arch",
+      "description": "Audita uma codebase legada, identifica anti-patterns arquiteturais e refatora para MVC com validacao de funcionamento. Use quando o usuario pedir auditoria arquitetural, relatorio de code smells, refatoracao MVC ou execucao do desafio de Skill de Auditoria e Refatoracao Arquitetural."
+    }
+  ]
+}

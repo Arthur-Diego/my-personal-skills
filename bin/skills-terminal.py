@@ -20,6 +20,7 @@ class Skill:
     name: str
     description: str
     path: Path
+    bucket: str
 
 
 def parse_frontmatter(skill_file: Path) -> dict[str, str]:
@@ -44,16 +45,19 @@ def load_skills() -> list[Skill]:
         return []
 
     skills: list[Skill] = []
-    for skill_dir in sorted(SKILLS_DIR.iterdir()):
-        skill_file = skill_dir / "SKILL.md"
-        if not skill_dir.is_dir() or not skill_file.exists():
+    for skill_file in sorted(SKILLS_DIR.glob("**/SKILL.md")):
+        skill_dir = skill_file.parent
+        if not skill_dir.is_dir():
             continue
+        relative = skill_dir.relative_to(SKILLS_DIR)
+        bucket = relative.parts[0] if len(relative.parts) > 1 else "local"
+        skill_file = skill_dir / "SKILL.md"
 
         metadata = parse_frontmatter(skill_file)
         name = metadata.get("name") or skill_dir.name
         description = metadata.get("description") or "Sem descricao."
-        skills.append(Skill(name=name, description=description, path=skill_dir))
-    return skills
+        skills.append(Skill(name=name, description=description, path=skill_dir, bucket=bucket))
+    return sorted(skills, key=lambda skill: (skill.bucket, skill.name))
 
 
 def print_skills(skills: list[Skill]) -> None:
@@ -63,7 +67,7 @@ def print_skills(skills: list[Skill]) -> None:
 
     print("\nSkills disponiveis:\n")
     for index, skill in enumerate(skills, start=1):
-        print(f"{index}. {skill.name}")
+        print(f"{index}. {skill.name} ({skill.bucket})")
         print(f"   {skill.description}")
 
 
@@ -88,6 +92,7 @@ def choose_skill(skills: list[Skill]) -> Skill | None:
 def show_skill_details(skill: Skill) -> None:
     skill_file = skill.path / "SKILL.md"
     print(f"\nNome: {skill.name}")
+    print(f"Bucket: {skill.bucket}")
     print(f"Descricao: {skill.description}")
     print(f"Caminho: {skill.path.relative_to(REPO_ROOT)}")
 
@@ -123,6 +128,20 @@ def install_skill(skill: Skill, project_path: Path, force: bool = False) -> Path
     return target_dir
 
 
+def find_skill(skills: list[Skill], query: str) -> Skill | None:
+    matches = [
+        skill
+        for skill in skills
+        if skill.name == query or f"{skill.bucket}/{skill.name}" == query
+    ]
+    if len(matches) == 1:
+        return matches[0]
+    if len(matches) > 1:
+        mine_match = next((skill for skill in matches if skill.bucket == "mine"), None)
+        return mine_match or matches[0]
+    return None
+
+
 def create_skill_skeleton() -> None:
     raw_name = input("Nome da nova skill (ex: audit-api): ").strip()
     name = normalize_name(raw_name)
@@ -130,7 +149,13 @@ def create_skill_skeleton() -> None:
         print("Nome invalido.")
         return
 
-    target = SKILLS_DIR / name
+    raw_bucket = input("Bucket [mine/community/experiments] (padrao: mine): ").strip()
+    bucket = normalize_name(raw_bucket) if raw_bucket else "mine"
+    if bucket not in {"mine", "community", "experiments"}:
+        print("Bucket invalido. Use mine, community ou experiments.")
+        return
+
+    target = SKILLS_DIR / bucket / name
     if target.exists():
         print(f"A skill ja existe: {target.relative_to(REPO_ROOT)}")
         return
@@ -230,7 +255,7 @@ def main(argv: list[str]) -> int:
         return 0
 
     if args.command == "install":
-        skill = next((item for item in skills if item.name == args.skill), None)
+        skill = find_skill(skills, args.skill)
         if not skill:
             print(f"Skill nao encontrada: {args.skill}", file=sys.stderr)
             return 1
