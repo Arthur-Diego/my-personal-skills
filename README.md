@@ -2,9 +2,63 @@
 
 Repositorio pessoal para guardar, catalogar e instalar skills reutilizaveis em projetos.
 
-Inspirado na organizacao de repositorios de skills como `pedronauck/skills`, este repo funciona como uma biblioteca: voce adiciona skills em `skills/`, lista pelo terminal interativo e instala a skill escolhida dentro de qualquer projeto.
+Inspirado na organizacao de repositorios de skills como `pedronauck/skills`, este repo funciona como uma biblioteca: voce adiciona skills em `skills/`, lista pelo CLI `npx skills` e instala a skill escolhida dentro de qualquer projeto.
 
-## Instalacao local
+## Instalacao via npx
+
+Listar as skills disponiveis no repositorio:
+
+```bash
+npx skills add Arthur-Diego/my-personal-skills --list --full-depth
+```
+
+Instalar todas as skills no projeto atual:
+
+```bash
+npx skills add Arthur-Diego/my-personal-skills --all --full-depth
+```
+
+Instalar uma skill especifica no projeto atual:
+
+```bash
+npx skills add Arthur-Diego/my-personal-skills --skill refactor-arch --full-depth
+```
+
+Instalar uma skill especifica para Claude Code:
+
+```bash
+npx skills add Arthur-Diego/my-personal-skills --skill refactor-arch --agent claude-code --full-depth
+```
+
+Instalar uma skill especifica para Codex:
+
+```bash
+npx skills add Arthur-Diego/my-personal-skills --skill refactor-arch --agent codex --full-depth
+```
+
+Instalar globalmente para o usuario:
+
+```bash
+npx skills add Arthur-Diego/my-personal-skills --skill refactor-arch --global --full-depth
+```
+
+Buscar skills de forma interativa:
+
+```bash
+npx skills find --owner Arthur-Diego
+```
+
+Depois, dentro do projeto, use a skill pelo nome:
+
+```bash
+claude "/refactor-arch"
+```
+
+Quando o agente detectado for Codex, o instalador usa `.agents/skills/...`. Quando voce passa `--agent claude-code`, ele instala em `.claude/skills/...`.
+
+Observacao: este repositorio esta privado. O `npx skills` funcionou localmente porque o GitHub ja esta autenticado nesta maquina. Em outra maquina, autentique primeiro com `gh auth login` ou torne o repositorio publico.
+
+## Instalacao local alternativa
 
 Clone o repositorio:
 
@@ -19,13 +73,13 @@ Liste as skills disponiveis:
 python3 bin/skills-terminal.py list
 ```
 
-Abra o terminal interativo:
+Abra o terminal interativo local:
 
 ```bash
 python3 bin/skills-terminal.py
 ```
 
-Instale uma skill em um projeto:
+Instale uma skill em um projeto especifico:
 
 ```bash
 python3 bin/skills-terminal.py install refactor-arch /caminho/do/projeto
@@ -33,16 +87,10 @@ python3 bin/skills-terminal.py install design-docs-auditor /caminho/do/projeto
 python3 bin/skills-terminal.py install compozy-project-companion /caminho/do/projeto
 ```
 
-Isso copia a skill para:
+O instalador local copia a skill para:
 
 ```text
 /caminho/do/projeto/.claude/skills/refactor-arch/
-```
-
-Depois, dentro do projeto:
-
-```bash
-claude "/refactor-arch"
 ```
 
 ## Estrutura
