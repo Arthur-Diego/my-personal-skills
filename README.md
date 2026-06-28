@@ -1,196 +1,134 @@
 # my-personal-skills
 
-Repositorio pessoal de skills reutilizaveis para trabalhar com Compozy, agentes de IA, projetos greenfield e projetos brownfield.
+Skills para trabalhar com **Compozy + agentes de IA** em projetos greenfield e brownfield.
 
-As skills deste repo **nao substituem o Compozy**. Use o Compozy como fonte de verdade para PRD, TechSpec, tasks e SDD. Estas skills servem para preparar contexto, entender repositorios, validar documentacao, criar guardrails para agentes e revisar prompts/evals.
+O Compozy continua sendo a fonte de verdade para **PRD, TechSpec, tasks e SDD**.  
+Estas skills preparam contexto, validam riscos e organizam a execucao por agentes.
 
-## Instalar com npx skills
-
-Listar skills:
+## Instalar
 
 ```bash
 npx skills add Arthur-Diego/my-personal-skills --list --full-depth
+npx skills add Arthur-Diego/my-personal-skills --skill compozy-project-companion --full-depth
 ```
 
-Instalar todas no projeto atual:
+Para instalar tudo:
 
 ```bash
 npx skills add Arthur-Diego/my-personal-skills --all --full-depth
 ```
 
-Instalar uma skill especifica:
-
-```bash
-npx skills add Arthur-Diego/my-personal-skills --skill compozy-project-companion --full-depth
-```
-
-Para Claude Code:
-
-```bash
-npx skills add Arthur-Diego/my-personal-skills --skill compozy-project-companion --agent claude-code --full-depth
-```
-
-Para Codex:
-
-```bash
-npx skills add Arthur-Diego/my-personal-skills --skill compozy-project-companion --agent codex --full-depth
-```
-
-Observacao: se o repositorio estiver privado, autentique o GitHub na maquina antes de instalar.
-
-## Instalar com CLI local
+CLI local:
 
 ```bash
 git clone https://github.com/Arthur-Diego/my-personal-skills.git
 cd my-personal-skills
-python3 bin/skills-terminal.py list
-python3 bin/skills-terminal.py install <skill> /caminho/do/projeto
+python3 bin/skills-terminal.py install compozy-project-companion /caminho/do/projeto
 ```
 
-Exemplos:
+## Skill principal
 
-```bash
-python3 bin/skills-terminal.py install compozy-project-companion ~/code/meu-projeto
-python3 bin/skills-terminal.py install existing-codebase-onboarding ~/code/meu-projeto
-python3 bin/skills-terminal.py install agent-harness-engineer ~/code/meu-projeto
+`compozy-project-companion` e a skill orquestradora.
+
+Ela decide o caminho:
+
+```text
+                compozy-project-companion
+                         |
+        +----------------+----------------+
+        |                                 |
+   Greenfield                         Brownfield
+ projeto novo                     projeto existente
+```
+
+## Fluxo Greenfield
+
+```text
+1. idea-discovery-assistant
+   Descobre ideia, problema, publico, risco e potencial de IA.
+
+        |
+        v
+
+2. compozy-input-brief
+   Transforma a ideia em um brief limpo para o Compozy.
+
+        |
+        v
+
+3. Compozy
+   Gera PRD, TechSpec, tasks e fluxo SDD.
+
+        |
+        v
+
+4. compozy-project-companion
+   Decide proximas skills e checa se a execucao esta pronta.
+
+        |
+        v
+
+5. agent-harness-engineer
+   Cria guardrails, gates, comandos e criterios para agentes.
+
+        |
+        v
+
+6. prompt-registry-and-evals
+   Use se houver IA, prompts, RAG ou LLM em producao.
+```
+
+## Fluxo Brownfield
+
+```text
+1. existing-codebase-onboarding
+   Mapeia stack, arquitetura, entrypoints, APIs, testes e riscos.
+
+        |
+        v
+
+2. design-docs-auditor
+   Audita lacunas de Design Docs, ADRs, contratos e operacao.
+
+        |
+        v
+
+3. compozy-input-brief
+   Prepara o contexto do projeto existente para o Compozy.
+
+        |
+        v
+
+4. Compozy
+   Gera ou atualiza os artefatos SDD.
+
+        |
+        v
+
+5. agent-harness-engineer
+   Define limites, validacoes, evidencias e estrategia de execucao.
+
+        |
+        v
+
+6. refactor-arch
+   Use quando o foco for auditoria/refatoracao arquitetural.
 ```
 
 ## Skills
 
-- `compozy-project-companion`: orquestra o fluxo de apoio ao Compozy sem substituir SDD.
-- `idea-discovery-assistant`: ajuda a escolher ideias de projeto quando ainda nao ha requisito de negocio.
-- `compozy-input-brief`: transforma contexto solto em brief pronto para o Compozy.
-- `existing-codebase-onboarding`: mapeia stack, arquitetura, entrypoints, testes, riscos e primeiros passos em repos existentes.
-- `design-docs-auditor`: audita lacunas de Design Docs, ADRs, guidelines, contratos e operacao.
-- `agent-harness-engineer`: cria/audita guardrails, gates, rubricas e execucao segura de agentes.
-- `prompt-registry-and-evals`: estrutura versionamento, registry e avaliacoes de prompts.
-- `refactor-arch`: audita codebases legadas e orienta refatoracao MVC.
-
-## Greenfield
-
-Use quando ainda nao existe projeto ou quando voce esta criando algo do zero.
-
-### 1. Descobrir ideia
-
-```bash
-npx skills add Arthur-Diego/my-personal-skills --skill idea-discovery-assistant --full-depth
-```
-
-Resultado esperado:
-
-- ideias candidatas;
-- problema e publico;
-- potencial de uso de IA;
-- risco e complexidade;
-- ideia recomendada.
-
-### 2. Preparar entrada para o Compozy
-
-```bash
-npx skills add Arthur-Diego/my-personal-skills --skill compozy-input-brief --full-depth
-```
-
-Resultado esperado:
-
-- contexto;
-- objetivo;
-- usuarios;
-- restricoes;
-- stack desejada;
-- IA/LLM/RAG, se aplicavel;
-- perguntas abertas.
-
-Depois disso, rode o fluxo SDD no Compozy.
-
-### 3. Preparar implementacao por agente
-
-Depois que o Compozy gerar os artefatos:
-
-```bash
-npx skills add Arthur-Diego/my-personal-skills --skill compozy-project-companion --full-depth
-npx skills add Arthur-Diego/my-personal-skills --skill agent-harness-engineer --full-depth
-```
-
-Resultado esperado:
-
-- caminho de execucao recomendado;
-- guardrails para agentes;
-- comandos de validacao;
-- criterios de qualidade;
-- riscos antes da implementacao.
-
-### 4. Se tiver IA, prompts ou RAG
-
-```bash
-npx skills add Arthur-Diego/my-personal-skills --skill prompt-registry-and-evals --full-depth
-```
-
-Resultado esperado:
-
-- estrutura de prompts;
-- versionamento;
-- metadados `prompt.yaml`;
-- evals/golden cases;
-- criterios de qualidade.
-
-## Brownfield
-
-Use quando o projeto ja existe e voce precisa entrar com seguranca.
-
-### 1. Fazer onboarding tecnico
-
-```bash
-npx skills add Arthur-Diego/my-personal-skills --skill existing-codebase-onboarding --full-depth
-```
-
-Resultado esperado:
-
-- stack detectada;
-- arquitetura atual;
-- entrypoints;
-- rotas/APIs;
-- banco e migracoes;
-- comandos de run/test/build;
-- riscos;
-- primeiras mudancas seguras.
-
-### 2. Auditar documentacao tecnica
-
-```bash
-npx skills add Arthur-Diego/my-personal-skills --skill design-docs-auditor --full-depth
-```
-
-Resultado esperado:
-
-- score de maturidade;
-- lacunas de Design Docs/ADRs/guidelines/contratos/operacao;
-- artefatos recomendados.
-
-### 3. Preparar mudanca para o Compozy
-
-```bash
-npx skills add Arthur-Diego/my-personal-skills --skill compozy-input-brief --full-depth
-```
-
-Use a saida do onboarding e da auditoria como contexto para o Compozy.
-
-### 4. Controlar execucao por agente
-
-```bash
-npx skills add Arthur-Diego/my-personal-skills --skill agent-harness-engineer --full-depth
-```
-
-Resultado esperado:
-
-- limites de alteracao;
-- gates de validacao;
-- estrategia de branches/worktrees;
-- evidencias necessarias;
-- fallback e tratamento de falhas.
+| Skill | Faz |
+| --- | --- |
+| `compozy-project-companion` | Orquestra o fluxo e escolhe quais skills usar. |
+| `idea-discovery-assistant` | Ajuda a encontrar uma ideia de projeto viavel. |
+| `compozy-input-brief` | Cria um brief de entrada para o Compozy. |
+| `existing-codebase-onboarding` | Explica um repo existente antes de mexer nele. |
+| `design-docs-auditor` | Encontra lacunas de Design Docs, ADRs e operacao. |
+| `agent-harness-engineer` | Define guardrails e validacoes para agentes. |
+| `prompt-registry-and-evals` | Organiza prompts, versoes e avaliacoes. |
+| `refactor-arch` | Audita e orienta refatoracao arquitetural. |
 
 ## Manutencao
-
-Sempre que adicionar, remover ou editar skills:
 
 ```bash
 python3 scripts/generate-skills-lock.py
