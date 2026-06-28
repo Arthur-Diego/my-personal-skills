@@ -30,6 +30,7 @@ Instale uma skill em um projeto:
 ```bash
 python3 bin/skills-terminal.py install refactor-arch /caminho/do/projeto
 python3 bin/skills-terminal.py install design-docs-auditor /caminho/do/projeto
+python3 bin/skills-terminal.py install compozy-project-companion /caminho/do/projeto
 ```
 
 Isso copia a skill para:
@@ -90,6 +91,48 @@ python3 bin/skills-terminal.py install mine/refactor-arch ~/code/meu-projeto
 
 - `refactor-arch`: audita codebases legadas e orienta refatoracao MVC.
 - `design-docs-auditor`: audita repositorios e identifica lacunas de PRD, Design Docs, ADRs, guidelines, contratos e operacao.
+- `compozy-project-companion`: orquestra o fluxo de apoio ao Compozy sem substituir o SDD.
+- `idea-discovery-assistant`: ajuda a escolher ideias de projeto quando ainda nao ha requisitos de negocio.
+- `compozy-input-brief`: transforma contexto solto em um brief pronto para usar no Compozy.
+- `existing-codebase-onboarding`: mapeia stack, arquitetura, entrypoints, testes, riscos e primeiros passos em repos existentes.
+- `agent-harness-engineer`: cria e audita guardrails, gates, rubricas e execucao segura de agentes.
+- `prompt-registry-and-evals`: estrutura versionamento, registry e avaliacoes de prompts.
+
+## Fluxo recomendado com Compozy
+
+As skills deste repositorio nao substituem o Compozy. Use o Compozy como fonte de verdade para PRD, TechSpec, tasks e SDD. As skills ajudam antes e depois desse fluxo.
+
+Projeto novo sem ideia:
+
+```text
+idea-discovery-assistant
+-> compozy-input-brief
+-> Compozy
+-> compozy-project-companion
+-> agent-harness-engineer
+-> implementacao por agente
+```
+
+Projeto existente:
+
+```text
+existing-codebase-onboarding
+-> design-docs-auditor
+-> compozy-input-brief
+-> Compozy
+-> agent-harness-engineer
+-> implementacao por agente
+```
+
+Feature com IA, prompts ou RAG:
+
+```text
+compozy-input-brief
+-> Compozy
+-> prompt-registry-and-evals
+-> agent-harness-engineer
+-> implementacao por agente
+```
 
 Para usar o auditor de Design Docs diretamente:
 
@@ -179,6 +222,19 @@ Uso:
 python3 bin/skills-terminal.py install refactor-arch /caminho/do/projeto
 cd /caminho/do/projeto
 claude "/refactor-arch"
+```
+
+### Kit Compozy + IA
+
+Skills autorais adicionadas para projetos com Compozy, agentes e Applied AI Engineering:
+
+```text
+skills/mine/compozy-project-companion/
+skills/mine/idea-discovery-assistant/
+skills/mine/compozy-input-brief/
+skills/mine/existing-codebase-onboarding/
+skills/mine/agent-harness-engineer/
+skills/mine/prompt-registry-and-evals/
 ```
 
 ## Manutencao

@@ -9,6 +9,42 @@
       "description": "Audit software repositories for missing or weak Design Docs, PRDs, ADRs, engineering guidelines, architecture records, API contracts, operational docs, and project decision documentation. Use when asked to validate a new or existing codebase against Design Docs practices, identify documentation gaps before implementation, create a technical documentation checklist, review repo readiness, or produce a remediation plan for product/architecture/design documentation."
     },
     {
+      "name": "agent-harness-engineer",
+      "bucket": "mine",
+      "path": "skills/mine/agent-harness-engineer",
+      "description": "Design and audit the operating harness for AI coding agents including worktrees, boundaries, artifacts, state, validation gates, rubrics, observability, degradation handling, and safe parallel execution. Use before agent implementation, parallel SDD execution, or when agents are producing inconsistent or unverifiable results."
+    },
+    {
+      "name": "compozy-input-brief",
+      "bucket": "mine",
+      "path": "skills/mine/compozy-input-brief",
+      "description": "Convert a raw idea, meeting notes, codebase context, or vague request into a clean Compozy-ready input brief. Use before Compozy when the user needs structured context, constraints, and questions, but must not generate PRD, TechSpec, or SDD task files."
+    },
+    {
+      "name": "compozy-project-companion",
+      "bucket": "mine",
+      "path": "skills/mine/compozy-project-companion",
+      "description": "Orchestrate a Compozy-centered project workflow without replacing Compozy SDD. Use when starting a new project, entering an existing codebase, preparing a brief for Compozy, reviewing Compozy-generated artifacts, or deciding which companion skills to run before or after Compozy execution."
+    },
+    {
+      "name": "existing-codebase-onboarding",
+      "bucket": "mine",
+      "path": "skills/mine/existing-codebase-onboarding",
+      "description": "Analyze an existing repository so a developer or AI agent can safely enter the project. Use before Compozy or implementation work to map stack, architecture, entrypoints, modules, APIs, data storage, commands, tests, risks, documentation gaps, and first safe change boundaries."
+    },
+    {
+      "name": "idea-discovery-assistant",
+      "bucket": "mine",
+      "path": "skills/mine/idea-discovery-assistant",
+      "description": "Help discover viable software project ideas for AI-assisted development when the user has no clear idea or business requirements. Use before Compozy to explore domains, problems, users, feasibility, AI value, MVP scope, and learning goals without generating PRD or SDD artifacts."
+    },
+    {
+      "name": "prompt-registry-and-evals",
+      "bucket": "mine",
+      "path": "skills/mine/prompt-registry-and-evals",
+      "description": "Design or audit prompt registries, prompt versioning, prompt.yaml metadata, prompt tests, comparative evaluations, query reformulation, prompt enrichment, and quality gates for LLM applications or team productivity prompts. Use when a project uses prompts in production, agents, RAG, LangChain/LangSmith, or shared AI workflows."
+    },
+    {
       "name": "refactor-arch",
       "bucket": "mine",
       "path": "skills/mine/refactor-arch",

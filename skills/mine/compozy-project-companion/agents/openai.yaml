@@ -1,0 +1,5 @@
+interface:
+  display_name: "Compozy Project Companion"
+  short_description: "Orquestra projetos com Compozy."
+  default_prompt: "Use $compozy-project-companion para escolher o fluxo correto antes ou depois do Compozy."
+

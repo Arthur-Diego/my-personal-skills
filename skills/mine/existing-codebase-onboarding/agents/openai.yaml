@@ -1,0 +1,5 @@
+interface:
+  display_name: "Existing Codebase Onboarding"
+  short_description: "Mapeia projetos existentes."
+  default_prompt: "Use $existing-codebase-onboarding para me orientar neste repositório antes de qualquer mudança."
+

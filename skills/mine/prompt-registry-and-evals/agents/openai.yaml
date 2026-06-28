@@ -1,0 +1,5 @@
+interface:
+  display_name: "Prompt Registry And Evals"
+  short_description: "Versiona e avalia prompts."
+  default_prompt: "Use $prompt-registry-and-evals para criar ou auditar registry, versões e evals de prompts."
+

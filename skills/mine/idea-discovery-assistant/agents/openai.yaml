@@ -1,0 +1,5 @@
+interface:
+  display_name: "Idea Discovery Assistant"
+  short_description: "Descobre ideias viáveis com IA."
+  default_prompt: "Use $idea-discovery-assistant para me ajudar a escolher uma ideia de projeto antes do Compozy."
+

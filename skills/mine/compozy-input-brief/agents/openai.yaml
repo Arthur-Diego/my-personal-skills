@@ -1,0 +1,5 @@
+interface:
+  display_name: "Compozy Input Brief"
+  short_description: "Prepara briefs para Compozy."
+  default_prompt: "Use $compozy-input-brief para transformar esta ideia em um brief pronto para o Compozy."
+

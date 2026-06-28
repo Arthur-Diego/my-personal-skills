@@ -1,0 +1,5 @@
+interface:
+  display_name: "Agent Harness Engineer"
+  short_description: "Cria guardrails para agentes."
+  default_prompt: "Use $agent-harness-engineer para auditar e melhorar o harness de execução dos agentes neste repo."
+
