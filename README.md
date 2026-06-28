@@ -5,6 +5,13 @@ Skills para trabalhar com **Compozy + agentes de IA** em projetos greenfield e b
 O Compozy continua sendo a fonte de verdade para **PRD, TechSpec, tasks e SDD**.  
 Estas skills preparam contexto, validam riscos e organizam a execucao por agentes.
 
+Legenda:
+
+- `[AUTO]`: feito por uma skill/agente.
+- `[MANUAL]`: feito por voce fora da skill.
+
+As skills **nao executam o Compozy automaticamente**. Elas preparam a entrada e validam a saida.
+
 ## Instalar
 
 ```bash
@@ -44,74 +51,74 @@ Ela decide o caminho:
 ## Fluxo Greenfield
 
 ```text
-1. idea-discovery-assistant
+1. [AUTO] idea-discovery-assistant
    Descobre ideia, problema, publico, risco e potencial de IA.
 
         |
         v
 
-2. compozy-input-brief
-   Transforma a ideia em um brief limpo para o Compozy.
+2. [AUTO] compozy-input-brief
+   Transforma a ideia em um brief limpo para voce usar no Compozy.
 
         |
         v
 
-3. Compozy
-   Gera PRD, TechSpec, tasks e fluxo SDD.
+3. [MANUAL] Rodar Compozy
+   Voce executa seu fluxo Compozy para gerar PRD, TechSpec, tasks e SDD.
 
         |
         v
 
-4. compozy-project-companion
-   Decide proximas skills e checa se a execucao esta pronta.
+4. [AUTO] compozy-project-companion
+   Le os resultados/contexto e decide proximas skills.
 
         |
         v
 
-5. agent-harness-engineer
+5. [AUTO] agent-harness-engineer
    Cria guardrails, gates, comandos e criterios para agentes.
 
         |
         v
 
-6. prompt-registry-and-evals
+6. [AUTO] prompt-registry-and-evals
    Use se houver IA, prompts, RAG ou LLM em producao.
 ```
 
 ## Fluxo Brownfield
 
 ```text
-1. existing-codebase-onboarding
+1. [AUTO] existing-codebase-onboarding
    Mapeia stack, arquitetura, entrypoints, APIs, testes e riscos.
 
         |
         v
 
-2. design-docs-auditor
+2. [AUTO] design-docs-auditor
    Audita lacunas de Design Docs, ADRs, contratos e operacao.
 
         |
         v
 
-3. compozy-input-brief
-   Prepara o contexto do projeto existente para o Compozy.
+3. [AUTO] compozy-input-brief
+   Prepara o contexto do projeto existente para voce usar no Compozy.
 
         |
         v
 
-4. Compozy
-   Gera ou atualiza os artefatos SDD.
+4. [MANUAL] Rodar Compozy
+   Voce executa o Compozy para gerar ou atualizar os artefatos SDD.
 
         |
         v
 
-5. agent-harness-engineer
+5. [AUTO] agent-harness-engineer
    Define limites, validacoes, evidencias e estrategia de execucao.
 
         |
         v
 
-6. refactor-arch
+6. [AUTO] refactor-arch
    Use quando o foco for auditoria/refatoracao arquitetural.
 ```
 
@@ -119,7 +126,7 @@ Ela decide o caminho:
 
 | Skill | Faz |
 | --- | --- |
-| `compozy-project-companion` | Orquestra o fluxo e escolhe quais skills usar. |
+| `compozy-project-companion` | Orquestra o fluxo; nao chama o Compozy. |
 | `idea-discovery-assistant` | Ajuda a encontrar uma ideia de projeto viavel. |
 | `compozy-input-brief` | Cria um brief de entrada para o Compozy. |
 | `existing-codebase-onboarding` | Explica um repo existente antes de mexer nele. |
@@ -135,4 +142,3 @@ python3 scripts/generate-skills-lock.py
 python3 -m py_compile bin/skills-terminal.py scripts/generate-skills-lock.py
 python3 bin/skills-terminal.py list
 ```
-
