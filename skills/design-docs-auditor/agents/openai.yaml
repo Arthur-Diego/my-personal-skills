@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Docs Auditor"
+  short_description: "Audita lacunas de Design Docs."
+  default_prompt: "Analise este repositório com design-docs-auditor e gere um relatório do que falta em PRD, Design Docs, ADRs, guidelines, contratos e operação."

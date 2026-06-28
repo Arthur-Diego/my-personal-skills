@@ -28,6 +28,7 @@ Para instalar direto em um projeto:
 
 ```bash
 python3 bin/skills-terminal.py install refactor-arch /caminho/do/projeto
+python3 bin/skills-terminal.py install design-docs-auditor /caminho/do/projeto
 ```
 
 Isso copia a skill para:
@@ -61,6 +62,25 @@ python3 bin/skills-terminal.py install refactor-arch /caminho/do/projeto --force
 A pasta `skills/` e a biblioteca principal. Guarde nela todas as suas skills reutilizaveis.
 
 A pasta `.claude/skills/` fica como copia local pronta para uso no proprio repositorio.
+
+## Skills disponiveis
+
+- `refactor-arch`: audita codebases legadas e orienta refatoracao MVC.
+- `design-docs-auditor`: audita repositorios e identifica lacunas de PRD, Design Docs, ADRs, guidelines, contratos e operacao.
+
+Para usar o auditor de Design Docs diretamente:
+
+```bash
+python3 skills/design-docs-auditor/scripts/audit_design_docs.py /caminho/do/repositorio --out /caminho/do/repositorio/design-docs-audit
+```
+
+Ele gera:
+
+```text
+design-docs-audit/
+├── audit.json
+└── audit.md
+```
 
 ## Como adicionar uma nova skill
 
