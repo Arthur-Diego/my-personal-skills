@@ -24,7 +24,7 @@
       "name": "compozy-project-companion",
       "bucket": "mine",
       "path": "skills/mine/compozy-project-companion",
-      "description": "Orchestrate a Compozy-centered project workflow without replacing Compozy SDD. Use when starting a new project, entering an existing codebase, preparing a brief for Compozy, reviewing Compozy-generated artifacts, or deciding which companion skills to run before or after Compozy execution."
+      "description": "Master checklist and readiness checkpoint for Compozy-centered projects. Use before and after feature waves, when starting greenfield work, entering brownfield codebases, preparing Compozy input, validating Compozy output, deciding which companion skill to run, or checking if implementation by AI agents is GREEN, YELLOW, or RED. This skill does not run Compozy or generate PRD, TechSpec, or task artifacts."
     },
     {
       "name": "existing-codebase-onboarding",

@@ -48,6 +48,18 @@ Ela decide o caminho:
  projeto novo                     projeto existente
 ```
 
+Rode ela novamente quando:
+
+- iniciar uma nova feature ou wave de tasks;
+- o Compozy atualizar artefatos;
+- for entregar trabalho para um agente;
+- uma wave terminar;
+- testes falharem ou nao puderem rodar;
+- mudar arquitetura, banco, API, auth, deploy, prompts, RAG ou evals;
+- o proximo passo ficar ambiguo.
+
+Nao precisa rodar de novo para task pequena, isolada e com validacao obvia.
+
 ## Fluxo Greenfield
 
 ```text
