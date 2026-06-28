@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cy Auto Spec Flow"
+  short_description: "Orquestra PRD, TechSpec e Tasks"
+  default_prompt: "Use $cy-auto-spec-flow para criar PRD, TechSpec e tasks recomendando e aprovando as melhores opções."

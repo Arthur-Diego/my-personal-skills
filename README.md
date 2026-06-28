@@ -139,6 +139,7 @@ Nao precisa rodar de novo para task pequena, isolada e com validacao obvia.
 | Skill | Faz |
 | --- | --- |
 | `compozy-project-companion` | Orquestra o fluxo; nao chama o Compozy. |
+| `cy-auto-spec-flow` | Automatiza PRD, TechSpec e Tasks com delegacao explicita. |
 | `idea-discovery-assistant` | Ajuda a encontrar uma ideia de projeto viavel. |
 | `compozy-input-brief` | Cria um brief de entrada para o Compozy. |
 | `existing-codebase-onboarding` | Explica um repo existente antes de mexer nele. |

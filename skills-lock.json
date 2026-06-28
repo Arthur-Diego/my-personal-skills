@@ -27,6 +27,12 @@
       "description": "Master checklist and readiness checkpoint for Compozy-centered projects. Use before and after feature waves, when starting greenfield work, entering brownfield codebases, preparing Compozy input, validating Compozy output, deciding which companion skill to run, or checking if implementation by AI agents is GREEN, YELLOW, or RED. This skill does not run Compozy or generate PRD, TechSpec, or task artifacts."
     },
     {
+      "name": "cy-auto-spec-flow",
+      "bucket": "mine",
+      "path": "skills/mine/cy-auto-spec-flow",
+      "description": "Orquestra o fluxo Compozy de especificacao de uma task, chamando cy-create-prd, cy-create-techspec e cy-create-tasks em sequencia, com delegacao explicita para escolher a melhor recomendacao e aprovar cada etapa. Use quando o usuario pedir para automatizar o pipeline PRD, TechSpec e Tasks, autoaprovar recomendacoes, ou executar o fluxo SDD/Compozy com minima interacao humana. Nao use para implementar codigo, revisar PR, corrigir reviews, ou quando faltar autorizacao explicita para escolher/aprovar em nome do usuario."
+    },
+    {
       "name": "existing-codebase-onboarding",
       "bucket": "mine",
       "path": "skills/mine/existing-codebase-onboarding",
